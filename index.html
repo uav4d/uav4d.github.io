@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="UAVTwin: Neural Digital Twins for UAVs using Gaussian Splatting">
+  <meta name="keywords" content="Gaussian Splatting, Reconstruction, Digital Twin">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UAVTwin: Neural Digital Twins for UAVs using Gaussian Splatting</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <link rel="stylesheet" href="./definitive-image-comparison-slider-master/src/dics.css">
+  <script src="./definitive-image-comparison-slider-master/src/dics.js"></script>
+	<script>
+    document.addEventListener('DOMContentLoaded', domReady);
+    function domReady() {
+      var b = document.querySelectorAll('.b-dics');
+      b.forEach(element => 
+        new Dics({
+          container: element,
+          textPosition: 'top'
+        })
+      );
+    }
+	</script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <!-- <a class="navbar-item" href="https://jh-choi.github.io"> -->
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title" style="font-size:36px;">
+            <span style="color:crimson">UAVTwin</span>: Neural Digital <span style="color:crimson">Twin</span>s for <span style="color:crimson">UAV</span>s using Gaussian Splatting 
+            <!-- <span style="color:crimson">I</span><span style="color:darkgoldenrod"><sup>2</sup></span>-<span style="color:darkblue">SDF</span>:  -->
+            <!-- <span style="color:crimson">I</span>ntrinsic <span style="color:darkgoldenrod">I</span>ndoor Scene Reconstruction and Editing via Raytracing in Neural <span style="color:darkblue">SDF</span>s -->
+          </h1>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block" style="font-size: 22px;">
+              <a href="https://jh-choi.github.io/">Jaehoon Choi</a><sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              <a href="https://jdk9405.github.io/">Dongki Jung</a><sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Yonghan Lee<sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Sungmin Eum<sup>2</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Dinesh Manocha<sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Heesung Kwon<sup>2</sup>
+            </span>
+          </div> -->
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block" style="font-size: 18px;"><sup>1</sup>University of Maryland</span>
+            <span class="author-block" style="font-size: 18px;"><sup>2</sup>ARL</span>
+          </div> -->
+
+          <!-- <div class="is-size-5 publication-authors">
+            <strong>CVPR 2023</strong>
+          </div> -->
+          <h2 style="font-size:24px;color:#6e6e6e">Anonymous</h2>
+
+          <div class="column has-text-centered">
+            <div class="link-block">
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Choi_TMO_Textured_Mesh_Acquisition_of_Objects_With_a_Mobile_Device_CVPR_2023_paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://openaccess.thecvf.com/content/CVPR2023/supplemental/Choi_TMO_Textured_Mesh_CVPR_2023_supplemental.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supplementary</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="http://arxiv.org/abs/2303.15060"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=uyHsYvmVypQ"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/jingsenzhu/i2-sdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data (Soon)</span>
+                </a>
+              </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/figure1.png" alt="Nerfies" height="100%">
+      <h2 class="subtitle has-text-centered">
+        <span class="UAVTwin">UAVTwin</span> processes video captured by the UAV as input, enabling data generation for training UAV-based human recognition methods.
+      </h2>
+    </div>
+  </div>
+</section>
+
+	
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <div class="content">
+            <div class="b-dics" style="width: 400px;">
+              <img src="static/images/teaser/0c_mono.png" alt="MonoSDF" />
+              <img src="static/images/teaser/0c_ours.png" alt="Ours" />
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content">
+            <div class="b-dics" style="width: 400px;">
+              <img src="static/images/teaser/0009_orig_filter.png" alt="Input" />
+              <img src="static/images/teaser/0009_relight_filter.png" alt="Relight" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered" style="font-size:16px;">
+        TL;DR: I<sup>2</sup>-SDF resolves challenges in reconstructing small objects inside an indoor scene by a novel bubble loss (Left), and leverages intrinsic decomposition and raytracing to enable photorealistic scene editing and relighting (Right).
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          We present UAVTwin, a method for creating digital twins from real-world environments and facilitating data augmentation for training downstream models embedded in unmanned aerial vehicles (UAVs). Specifically, our approach focuses on synthesizing foreground components, such as various human instances in motion within complex scene backgrounds, from UAV perspectives. This is achieved by integrating 3D Gaussian Splatting (3DGS) for reconstructing backgrounds along with controllable synthetic human models that display diverse appearances and actions in multiple poses. To the best of our knowledge, UAVTwin is the first approach for UAV-based perception that is capable of generating high-fidelity digital twins based on 3DGS. The proposed work significantly enhances downstream models through data augmentation for real-world environments with multiple dynamic objects and significant appearance variations—both of which typically introduce artifacts in 3DGS-based modeling. To tackle these challenges, we propose a novel appearance modeling strategy and a mask refinement module to enhance the training of 3D Gaussian Splatting. We demonstrate the high quality of neural rendering by achieving a 1.23 dB improvement in PSNR compared to recent methods. Furthermore, we validate the effectiveness of data augmentation by showing a 2.5% to 13.7% improvement in mAP for the human detection task.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Proposed Method</h2>
+        <div class="content has-text-justified">
+        <img src="./static/images/figure2.png" alt="Nerfies" height="100%">
+          Our approach first constructs a digital twin using UAV-based images captured at different times. We introduce MsGS, a novel 3DGS method to analyze varying appearance images and reconstruct a clean mesh, Gaussian splats, and an MLP for novel-view synthesis. Then, our method generates data by compositing foreground humans rendered in Blender with backgrounds rendered using trained Gaussian splats.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="synthesis">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Building Digital Twin</h2>
+    <div class="container">
+        <div class="column">
+          <div class="content">
+            <div class="b-dics" style="width:1500px;">
+              <img src="static/images/Scenario2_colmap.png" alt="Structure from Motion" />
+              <img src="static/images/Scenario2_mesh.png" alt="Mesh" />
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="content has-text-justified">
+      <br />
+      Visualizations of Drone1-Noon and Drone2-Noon across 11 video sequences, along with the corresponding mesh reconstruction results produced by our method.
+      Each video sequence captures a partial area of the scene, making it essential to use all 11 sequences to achieve a complete reconstruction of the scene.
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="synthesis">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Neural Data Generation</h2>
+    <div class="container">
+      <div id="novel-carousel" class="carousel results-carousel">
+        <div class="item item-0">
+          <div class="b-dics">
+            <img src="static/gifs/place_human.gif" alt="(1) Placing Human">
+          </div>
+        </div>
+        <div class="item item-1">
+          <div class="b-dics">
+            <img src="static/gifs/place_camera.gif" alt="(2) Placing Camera">
+          </div>
+        </div>
+        <div class="item item-2">
+          <div class="b-dics">
+            <img src="static/gifs/place_action.gif" alt="(3) Apply Motion">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <br />
+      <p>For data generation, our method comprises synthetic human placement, camera trajectory generation, and rendering foreground humans using a graphics engine (e.g. Blender).</p> 
+      <ul>
+        <li><strong>(1) 🧍Placing Humans</strong>: Place human actors.</li>
+        <li><strong>(2) 🎥Placing Camera</strong>: Camera Trajectory Generation for rendering images</li>
+        <li><strong>(3) 🕺Applying Motion</strong>: Randomly apply mtions for each human actors and render images</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- 
+<section class="section" id="synthesis">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Examples of Synthesized Data</h2>
+    <div class="container">
+      <div id="novel-carousel" class="carousel results-carousel">
+        <div class="item item-0">
+          <div class="b-dics">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_masks.gif" alt="BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_shadow.gif" alt="Mask">
+          </div>
+        </div>
+        <div class="item item-1">
+          <div class="b-dics">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_mask.gif" alt="BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_shadow.gif" alt="Mask">
+          </div>
+        </div>
+        <div class="item item-2">
+          <div class="b-dics">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_mask.gif" alt="BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_shadow.gif" alt="Mask">
+          </div>
+        </div>
+        <div class="item item-3">
+          <div class="b-dics">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_masks.gif" alt="BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_shadow.gif" alt="Mask">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content has-text-justified">
+      <br />
+      For data generation, our method comprises synthetic human placement, camera trajectory generation, and rendering foreground humans using a graphics engine (e.g. Blender). 
+    </div>
+  </div>
+</section> -->
+
+
+
+<section class="section" id="synthesis">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Examples of Synthesized Data</h2>
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column">
+          <div class="b-dics" style="width:100%;">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_masks.gif" alt="Images+BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_shadow.gif" alt="Mask+Shadow">
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column">
+          <div class="b-dics" style="width:100%;">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_mask.gif" alt="Images+BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_shadow.gif" alt="Mask+Shadow">
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column">
+          <div class="b-dics" style="width:100%;">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_mask.gif" alt="Images+BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_shadow.gif" alt="Mask+Shadow">
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column">
+          <div class="b-dics" style="width:100%;">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_images.gif" alt="Images">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_masks.gif" alt="Images+BBox">
+            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_shadow.gif" alt="Mask+Shadow">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <br />
+      <p>Examples of Synthesized Data with Corresponding Labels Generated Using Our Method</p>
+      <ul>
+        <li><strong>🖼️ Images</strong>: Synthesized images created using our method.</li>
+        <li><strong>📦 BBox</strong>: Bounding boxes extracted from Blender.</li>
+        <li><strong>👥 Mask+Shadow</strong>: Combined foreground mask and shadow generated by Blender.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="section" id="synthesis">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">ARKit-video</h2>
+    <div class="container">
+      <div id="novel-carousel" class="carousel results-carousel">
+        <div class="item item-0">
+          <div class="b-dics">
+            <img src="static/gifs/IMG_0027_rgbdsfm_mesh_True.gif">
+            <img src="static/gifs/IMG_0027_rgbdsfm_mesh_False.gif">
+          </div>
+        </div>
+        <div class="item item-3">
+          <div class="b-dics">
+            <img src="static/gifs/IMG_0025_rgbdsfm_mesh_True.gif">
+            <img src="static/gifs/IMG_0025_rgbdsfm_mesh_False.gif">
+          </div>
+        </div>
+        <div class="item item-1">
+          <div class="b-dics">
+            <img src="static/gifs/IMG_0032_rgbdsfm_mesh_True.gif"/>
+            <img src="static/gifs/IMG_0032_rgbdsfm_mesh_False.gif"/>
+          </div>
+        </div>
+        <div class="item item-2">
+          <div class="b-dics">
+            <img src="static/gifs/chair_long_rgbdsfm_mesh_True.gif"/>
+            <img src="static/gifs/chair_long_rgbdsfm_mesh_False.gif"/>
+          </div>
+        </div>
+        <div class="item item-4">
+          <div class="b-dics">
+            <img src="static/gifs/lucid_rgbdsfm_mesh_True.gif"/>
+            <img src="static/gifs/lucid_rgbdsfm_mesh_False.gif"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <br /> -->
+<!--       Our method outperforms previous methods in novel view synthesis of indoor scenes. Previous methods suffers from either reconstruction failure or overfitting. -->
+    <!-- </div>
+  </div>
+</section> -->
+	
+<!-- <section class="section" id="edit">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Editing and Relighting</h2>
+    <div class="container">
+      <div id="edit-carousel" class="carousel results-carousel">
+        <div class="item item-0">
+          <video autoplay muted loop playsinline poster controls>
+            <source src="static/videos/321_light.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-1">
+          <div class="b-dics">
+            <img src="static/images/edit/0159.png" alt="Input"/>
+            <img src="static/images/edit/0159_edit.png" alt="Edit" />
+          </div>
+        </div>
+        <div class="item item-2">
+          <div class="b-dics">
+            <img src="static/images/edit/0085.png" alt="Input"/>
+            <img src="static/images/edit/0085_edit.png" alt="Edit #1" />
+            <img src="static/images/edit/0085_metal.png" alt="Edit #2" />
+          </div>
+        </div>
+        <div class="item item-3">
+          <div class="b-dics">
+            <img src="static/images/edit/0047.png" alt="Input"/>
+            <img src="static/images/edit/0047_edit.png" alt="Edit" />
+          </div>
+        </div>
+        <div class="item item-4">
+          <div class="b-dics">
+            <img src="static/images/edit/0043.png" alt="Input"/>
+            <img src="static/images/edit/0043_edit.png" alt="Relight" />
+          </div>
+        </div>
+        <div class="item item-5">
+          <div class="b-dics">
+            <img src="static/images/edit/0110.png" alt="Input"/>
+            <img src="static/images/edit/0110_edit.png" alt="Edit" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <br />
+      We disentangle material (physically-based BRDF) and lighting (direct emission and indirect illumination) to enable photorealistic scene editing and relighting using Monte-Carlo raytracing.
+    </div>
+  </div>
+</section> -->
+<!-- 
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{choi2023tmo,
+    title = {TMO: Textured Mesh Acquisition of Objects with a Mobile Device by using Differentiable Rendering},
+    author = {Jaehoon Choi and Dongki Jung and Taejae Lee and Sangwook Kim and Youngdon Jung and Dinesh Manocha and Donghwan Lee},
+    booktitle = {CVPR},
+    year = {2023}
+}</code></pre>
+  </div>
+</section> -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="#">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Thanks to <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> for their excellent website templates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  bulmaCarousel.attach('#geo-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 2,
+    infinite: true
+  });
+  bulmaCarousel.attach('#novel-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 2,
+    infinite: true
+  });
+  bulmaCarousel.attach('#edit-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 2,
+    infinite: true
+  });
+</script>
+
+</body>
+</html>
