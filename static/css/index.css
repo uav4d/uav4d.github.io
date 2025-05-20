@@ -156,3 +156,16 @@ body {
   border-radius: 5px;
 }
 
+.overlay-label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-family: sans-serif;
+  border-radius: 4px;
+  z-index: 3;
+  pointer-events: none;
+}

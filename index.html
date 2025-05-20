@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="UAVTwin: Neural Digital Twins for UAVs using Gaussian Splatting">
-  <meta name="keywords" content="Gaussian Splatting, Reconstruction, Digital Twin">
+        content="UAV4D: Dynamic Neural Rendering of Human-Centric UAV Imagery using Gaussian Splatting">
+  <meta name="keywords" content="Dynamic Neural Rendering,Gaussian Splatting, UAV Imagery">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UAVTwin: Neural Digital Twins for UAVs using Gaussian Splatting</title>
+  <title>UAV4D: Dynamic Neural Rendering of Human-Centric UAV Imagery using Gaussian Splatting</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -19,6 +19,9 @@
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -69,7 +72,7 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title" style="font-size:36px;">
-            <span style="color:crimson">UAVTwin</span>: Neural Digital <span style="color:crimson">Twin</span>s for <span style="color:crimson">UAV</span>s using Gaussian Splatting 
+            <span style="color:crimson">UAV4D</span>: Dynamic Neural Rendering of Human-Centric <span style="color:crimson">UAV</span> Imagery using Gaussian Splatting 
             <!-- <span style="color:crimson">I</span><span style="color:darkgoldenrod"><sup>2</sup></span>-<span style="color:darkblue">SDF</span>:  -->
             <!-- <span style="color:crimson">I</span>ntrinsic <span style="color:darkgoldenrod">I</span>ndoor Scene Reconstruction and Editing via Raytracing in Neural <span style="color:darkblue">SDF</span>s -->
           </h1>
@@ -200,41 +203,12 @@
   </div>
 </section>
 
-<section class="hero teaser">
+<!-- <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
       <img src="./static/images/figure1.png" alt="Nerfies" height="100%">
       <h2 class="subtitle has-text-centered">
         <span class="UAVTwin">UAVTwin</span> processes video captured by the UAV as input, enabling data generation for training UAV-based human recognition methods.
-      </h2>
-    </div>
-  </div>
-</section>
-
-	
-<!-- <section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <div class="columns is-centered has-text-centered">
-        <div class="column">
-          <div class="content">
-            <div class="b-dics" style="width: 400px;">
-              <img src="static/images/teaser/0c_mono.png" alt="MonoSDF" />
-              <img src="static/images/teaser/0c_ours.png" alt="Ours" />
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="content">
-            <div class="b-dics" style="width: 400px;">
-              <img src="static/images/teaser/0009_orig_filter.png" alt="Input" />
-              <img src="static/images/teaser/0009_relight_filter.png" alt="Relight" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 class="subtitle has-text-centered" style="font-size:16px;">
-        TL;DR: I<sup>2</sup>-SDF resolves challenges in reconstructing small objects inside an indoor scene by a novel bubble loss (Left), and leverages intrinsic decomposition and raytracing to enable photorealistic scene editing and relighting (Right).
       </h2>
     </div>
   </div>
@@ -246,7 +220,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          We present UAVTwin, a method for creating digital twins from real-world environments and facilitating data augmentation for training downstream models embedded in unmanned aerial vehicles (UAVs). Specifically, our approach focuses on synthesizing foreground components, such as various human instances in motion within complex scene backgrounds, from UAV perspectives. This is achieved by integrating 3D Gaussian Splatting (3DGS) for reconstructing backgrounds along with controllable synthetic human models that display diverse appearances and actions in multiple poses. To the best of our knowledge, UAVTwin is the first approach for UAV-based perception that is capable of generating high-fidelity digital twins based on 3DGS. The proposed work significantly enhances downstream models through data augmentation for real-world environments with multiple dynamic objects and significant appearance variations—both of which typically introduce artifacts in 3DGS-based modeling. To tackle these challenges, we propose a novel appearance modeling strategy and a mask refinement module to enhance the training of 3D Gaussian Splatting. We demonstrate the high quality of neural rendering by achieving a 1.23 dB improvement in PSNR compared to recent methods. Furthermore, we validate the effectiveness of data augmentation by showing a 2.5% to 13.7% improvement in mAP for the human detection task.
+          Despite significant advancements in dynamic neural rendering, existing methods fail to address the unique challenges posed by UAV-captured scenarios, particularly those involving monocular camera setups, top-down perspective, and multiple small, moving humans, which are not adequately represented in existing datasets. In this work, we introduce UAV4D, a framework for enabling photorealistic rendering for dynamic real-world scenes captured by UAVs. Specifically, we address the challenge of reconstructing dynamic scenes with multiple moving pedestrians from monocular video data without the need for additional sensors. We use a combination of a 3D foundation model and a human mesh reconstruction model to reconstruct both the scene background and humans. We propose a novel approach to resolve the scene scale ambiguity and place both humans and the scene in world coordinates by identifying human-scene contact points. Additionally, we exploit the SMPL model and background mesh to initialize Gaussian splats, enabling holistic scene rendering.  We evaluated our method on three complex UAV-captured datasets: VisDrone, Manipal-UAV, and Okutama-Action, each with distinct characteristics and 10-50 humans. Our results demonstrate  the benefits of our approach over existing methods in novel view synthesis, achieving a 1.5 dB PSNR improvement and superior visual sharpness.
           </p>
         </div>
       </div>
@@ -261,8 +235,8 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Proposed Method</h2>
         <div class="content has-text-justified">
-        <img src="./static/images/figure2.png" alt="Nerfies" height="100%">
-          Our approach first constructs a digital twin using UAV-based images captured at different times. We introduce MsGS, a novel 3DGS method to analyze varying appearance images and reconstruct a clean mesh, Gaussian splats, and an MLP for novel-view synthesis. Then, our method generates data by compositing foreground humans rendered in Blender with backgrounds rendered using trained Gaussian splats.
+        <img src="./static/images/figure2.jpg" alt="Nerfies" height="100%">
+          Our approach begins with the initialization process for reconstructing the background scene and the human mesh. Then, we reconstruct the background mesh, determine the optimal scale for alignment, and position the human mesh by identifying the ground contact points. We jointly optimize the human and background Gaussians for rendering.
           </p>
         </div>
       </div>
@@ -271,160 +245,255 @@
 </section>
 
 
-<section class="section" id="synthesis">
-  <div class="container is-max-desktop has-text-centered">
-    <h2 class="title">Building Digital Twin</h2>
-    <div class="container">
-        <div class="column">
-          <div class="content">
-            <div class="b-dics" style="width:1500px;">
-              <img src="static/images/Scenario2_colmap.png" alt="Structure from Motion" />
-              <img src="static/images/Scenario2_mesh.png" alt="Mesh" />
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="content has-text-justified">
-      <br />
-      Visualizations of Drone1-Noon and Drone2-Noon across 11 video sequences, along with the corresponding mesh reconstruction results produced by our method.
-      Each video sequence captures a partial area of the scene, making it essential to use all 11 sequences to achieve a complete reconstruction of the scene.
-    </div>
-  </div>
-</section>
 
-
-
+<!-- Swiper CSS -->
+<!-- <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
 <section class="section" id="synthesis">
   <div class="container is-max-desktop has-text-centered">
     <h2 class="title">Neural Data Generation</h2>
-    <div class="container">
-      <div id="novel-carousel" class="carousel results-carousel">
-        <div class="item item-0">
-          <div class="b-dics">
-            <img src="static/gifs/place_human.gif" alt="(1) Placing Human">
-          </div>
+    <div class="swiper mySwiper" style="border-radius: 8px; overflow: hidden;">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <video id="video0" muted loop playsinline style="width: 100%;">
+            <source src="static/images/okutama_1_2_8.mp4" type="video/mp4" />
+          </video>
         </div>
-        <div class="item item-1">
-          <div class="b-dics">
-            <img src="static/gifs/place_camera.gif" alt="(2) Placing Camera">
-          </div>
-        </div>
-        <div class="item item-2">
-          <div class="b-dics">
-            <img src="static/gifs/place_action.gif" alt="(3) Apply Motion">
-          </div>
+        <div class="swiper-slide">
+          <video id="video1" muted loop playsinline style="width: 100%;">
+            <source src="static/images/okutama_1_2_8.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
-    <div class="content has-text-justified">
-      <br />
-      <p>For data generation, our method comprises synthetic human placement, camera trajectory generation, and rendering foreground humans using a graphics engine (e.g. Blender).</p> 
-      <ul>
-        <li><strong>(1) 🧍Placing Humans</strong>: Place human actors.</li>
-        <li><strong>(2) 🎥Placing Camera</strong>: Camera Trajectory Generation for rendering images</li>
-        <li><strong>(3) 🕺Applying Motion</strong>: Randomly apply mtions for each human actors and render images</li>
-      </ul>
-    </div>
-  </div>
-</section>
-<!-- 
-<section class="section" id="synthesis">
-  <div class="container is-max-desktop has-text-centered">
-    <h2 class="title">Examples of Synthesized Data</h2>
-    <div class="container">
-      <div id="novel-carousel" class="carousel results-carousel">
-        <div class="item item-0">
-          <div class="b-dics">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_masks.gif" alt="BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_shadow.gif" alt="Mask">
-          </div>
-        </div>
-        <div class="item item-1">
-          <div class="b-dics">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_mask.gif" alt="BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_shadow.gif" alt="Mask">
-          </div>
-        </div>
-        <div class="item item-2">
-          <div class="b-dics">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_mask.gif" alt="BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_shadow.gif" alt="Mask">
-          </div>
-        </div>
-        <div class="item item-3">
-          <div class="b-dics">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_masks.gif" alt="BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_shadow.gif" alt="Mask">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content has-text-justified">
-      <br />
-      For data generation, our method comprises synthetic human placement, camera trajectory generation, and rendering foreground humans using a graphics engine (e.g. Blender). 
+    <div class="buttons is-centered mt-3">
+      <button class="button is-small is-light" onclick="swiper.slideTo(0)">Scene 1</button>
+      <button class="button is-small is-light" onclick="swiper.slideTo(1)">Scene 2</button>
     </div>
   </div>
 </section> -->
 
+<!-- Swiper JS -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    on: {
+      slideChangeTransitionStart: () => {
+        document.querySelectorAll("video").forEach((v, i) => v.pause());
+      },
+      slideChangeTransitionEnd: () => {
+        const activeIndex = swiper.realIndex;
+        const video = document.querySelector(`#video${activeIndex}`);
+        if (video) {
+          video.play();
+          video.playbackRate = 0.6;
+        }
+      },
+    },
+  });
+
+  // On DOM ready, slow down all videos and play the first one
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("video").forEach((v) => {
+      v.playbackRate = 0.6;
+    });
+
+    const firstVideo = document.querySelector("#video0");
+    if (firstVideo) {
+      firstVideo.play();
+    }
+  });
+</script>
+
+ -->
+
+
+
+<!-- <style>
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .swiper-slide video {
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay-label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    z-index: 2;
+  }
+</style> -->
+
 
 
 <section class="section" id="synthesis">
   <div class="container is-max-desktop has-text-centered">
-    <h2 class="title">Examples of Synthesized Data</h2>
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column">
-          <div class="b-dics" style="width:100%;">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_masks.gif" alt="Images+BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_7/Morning_2_1_7_shadow.gif" alt="Mask+Shadow">
-          </div>
+    <h2 class="title">Results</h2>
+
+    <!-- Swipers Row -->
+    <div class="swiper-container-row" style="display: flex; justify-content: center; gap: 15px;">
+
+      <!-- Swiper 1 -->
+      <div class="swiper mySwiper1 overlay-top" style="border-radius: 4px; overflow: hidden; width: 100%;">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><div class="overlay-label">TK-Planes</div><video muted loop playsinline style="width: 100%;"><source src="static/images/visdrone_0079.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><video muted loop playsinline style="width: 100%;"><source src="static/images/tkplanes_visdrone_0084.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><video muted loop playsinline style="width: 100%;"><source src="static/images/manipal_40_GND_P1.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><video muted loop playsinline style="width: 100%;"><source src="static/images/manipal_50_GND_P1.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><video muted loop playsinline style="width: 100%;"><source src="static/images/okutama_1_2_2.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><video muted loop playsinline style="width: 100%;"><source src="static/images/okutama_1_2_8.mp4" type="video/mp4" /></video></div>
         </div>
       </div>
-      <div class="columns is-centered">
-        <div class="column">
-          <div class="b-dics" style="width:100%;">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_mask.gif" alt="Images+BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_2_2_2/Noon_2_2_2_shadow.gif" alt="Mask+Shadow">
-          </div>
+
+      <!-- Swiper 2 -->
+      <div class="swiper mySwiper2 overlay-top" style="border-radius: 4px; overflow: hidden; width: 100%;">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><div class="overlay-label">Ours</div><video muted loop playsinline style="width: 100%;"><source src="static/images/visdrone_0079.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">Ours</div><video muted loop playsinline style="width: 100%;"><source src="static/images/visdrone_0084.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">Ours</div><video muted loop playsinline style="width: 100%;"><source src="static/images/manipal_40_GND_P1.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">Ours</div><video muted loop playsinline style="width: 100%;"><source src="static/images/manipal_50_GND_P1.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">Ours</div><video muted loop playsinline style="width: 100%;"><source src="static/images/okutama_1_2_2.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">Ours</div><video muted loop playsinline style="width: 100%;"><source src="static/images/okutama_1_2_8.mp4" type="video/mp4" /></video></div>
         </div>
       </div>
-      <div class="columns is-centered">
-        <div class="column">
-          <div class="b-dics" style="width:100%;">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_mask.gif" alt="Images+BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Noon_1_2_2/Noon_1_2_2_shadow.gif" alt="Mask+Shadow">
-          </div>
-        </div>
-      </div>
-      <div class="columns is-centered">
-        <div class="column">
-          <div class="b-dics" style="width:100%;">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_images.gif" alt="Images">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_masks.gif" alt="Images+BBox">
-            <img src="https://huggingface.co/anonymousid/UAVTwin/resolve/main/Morning_2_1_1/Morning_2_1_1_shadow.gif" alt="Mask+Shadow">
-          </div>
+
+      <!-- Swiper 3 -->
+      <div class="swiper mySwiper3 overlay-top" style="border-radius: 4px; overflow: hidden; width: 100%;">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><div class="overlay-label">GT</div><video muted loop playsinline style="width: 100%;"><source src="static/images/visdrone_0079_gt.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">GT</div><video muted loop playsinline style="width: 100%;"><source src="static/images/visdrone_0084_gt.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">GT</div><video muted loop playsinline style="width: 100%;"><source src="static/images/manipal_40_GND_P1_gt.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">GT</div><video muted loop playsinline style="width: 100%;"><source src="static/images/manipal_50_GND_P1_gt.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">GT</div><video muted loop playsinline style="width: 100%;"><source src="static/images/okutama_1_2_2_gt.mp4" type="video/mp4" /></video></div>
+          <div class="swiper-slide"><div class="overlay-label">GT</div><video muted loop playsinline style="width: 100%;"><source src="static/images/okutama_1_2_8_gt.mp4" type="video/mp4" /></video></div>
         </div>
       </div>
     </div>
-    <div class="content has-text-justified">
-      <br />
-      <p>Examples of Synthesized Data with Corresponding Labels Generated Using Our Method</p>
-      <ul>
-        <li><strong>🖼️ Images</strong>: Synthesized images created using our method.</li>
-        <li><strong>📦 BBox</strong>: Bounding boxes extracted from Blender.</li>
-        <li><strong>👥 Mask+Shadow</strong>: Combined foreground mask and shadow generated by Blender.</li>
-      </ul>
+
+    <!-- Shared Control Buttons -->
+    <div class="buttons is-centered mt-3" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+      <button class="button is-small is-light" onclick="goToSlide(0)">
+        <video src="static/images/visdrone_0079.mp4" muted loop playsinline style="width: 50px;"></video>
+        <span class="ml-2">VisDrone 0079</span>
+      </button>
+      <button class="button is-small is-light" onclick="goToSlide(1)">
+        <video src="static/images/visdrone_0084.mp4" muted loop playsinline style="width: 50px;"></video>
+        <span class="ml-2">VisDrone 0084</span>
+      </button>
+      <button class="button is-small is-light" onclick="goToSlide(2)">
+        <video src="static/images/manipal_40_GND_P1.mp4" muted loop playsinline style="width: 50px;"></video>
+        <span class="ml-2">Manipal 40_GND_P1</span>
+      </button>
+      <button class="button is-small is-light" onclick="goToSlide(3)">
+        <video src="static/images/manipal_50_GND_P1.mp4" muted loop playsinline style="width: 50px;"></video>
+        <span class="ml-2">Manipal 50_GND_P1</span>
+      </button>
+      <button class="button is-small is-light" onclick="goToSlide(4)">
+        <video src="static/images/okutama_1_2_2.mp4" muted loop playsinline style="width: 40px;"></video>
+        <span class="ml-2">Okutama 1_2_2</span>
+      </button>
+      <button class="button is-small is-light" onclick="goToSlide(5)">
+        <video src="static/images/okutama_1_2_8.mp4" muted loop playsinline style="width: 40px;"></video>
+        <span class="ml-2">Okutama 1_2_8</span>
+      </button>
     </div>
   </div>
 </section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  function pauseAllVideos(containerSelector) {
+    document.querySelectorAll(`${containerSelector} video`).forEach((v) => v.pause());
+  }
+
+  function playActiveVideo(swiperInstance) {
+    swiperInstance.slides.forEach((slide) => {
+      if (slide.classList.contains("swiper-slide-active")) {
+        const video = slide.querySelector("video");
+        if (video) {
+          video.playbackRate = 0.6;
+          video.muted = true;
+          video.playsInline = true;
+          video.play().catch((e) => {
+            console.warn("Autoplay failed:", e);
+          });
+        }
+      }
+    });
+  }
+
+  const swiper1 = new Swiper(".mySwiper1", {
+    loop: true,
+    on: {
+      slideChangeTransitionStart: () => pauseAllVideos(".mySwiper1"),
+      slideChangeTransitionEnd: () => playActiveVideo(swiper1),
+    },
+  });
+
+  const swiper2 = new Swiper(".mySwiper2", {
+    loop: true,
+    on: {
+      slideChangeTransitionStart: () => pauseAllVideos(".mySwiper2"),
+      slideChangeTransitionEnd: () => playActiveVideo(swiper2),
+    },
+  });
+
+  const swiper3 = new Swiper(".mySwiper3", {
+    loop: true,
+    on: {
+      slideChangeTransitionStart: () => pauseAllVideos(".mySwiper3"),
+      slideChangeTransitionEnd: () => playActiveVideo(swiper3),
+    },
+  });
+
+  function goToSlide(index) {
+    swiper1.slideToLoop(index);
+    swiper2.slideToLoop(index);
+    swiper3.slideToLoop(index);
+
+    // Delay to ensure slide transition completes before playing
+    setTimeout(() => {
+      playActiveVideo(swiper1);
+      playActiveVideo(swiper2);
+      playActiveVideo(swiper3);
+    }, 300);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Set playback rate and play only the active video in each swiper
+    document.querySelectorAll("video").forEach((v) => {
+      v.playbackRate = 0.6;
+    });
+
+    // Wait for Swiper to initialize and then play visible videos
+    setTimeout(() => {
+      playActiveVideo(swiper1);
+      playActiveVideo(swiper2);
+      playActiveVideo(swiper3);
+    }, 300);
+  });
+</script>
+
+
+
 
 
 <!-- <section class="section" id="synthesis">
